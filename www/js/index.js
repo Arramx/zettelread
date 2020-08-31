@@ -1,14 +1,14 @@
 function onDeviceReady() {
     app =  {
         path: '',
-        ul = [],
+        ul: [],
         updatePath() {
             document.getElementById('path').innerHTML = this.path.split('/')[this.path.split('/').length-1];
         },
         updateFiles(res) {
             this.path = res ? res : this.path;
-            this.updatePath();
-            handleDir(this.path).then(res => this.ul = res ? res : this.ul);
+            document.getElementById('path').innerHTML = this.path.split('/')[this.path.split('/').length-1];
+            handleDir(this.path).then(function(ul) {this.ul = ul ? ul : this.ul;});
         }
     };
     
@@ -20,6 +20,7 @@ function onDeviceReady() {
             writePersistentFile('pathfile.txt', app.path);
         });
     });
+
 }
 
 document.addEventListener('deviceready', onDeviceReady, false);

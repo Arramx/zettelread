@@ -21,18 +21,16 @@ const handleFile = entry => {
 const handleDir = path => {
     return new Promise(res => {
         if (!path) res(null);
-
         window.resolveLocalFileSystemURL(`file://${path}`, dirEntry => {
             const dirReader = dirEntry.createReader();
-            
             dirReader.readEntries(entries => {
                 const ul = [];
                 for (entry of entries.filter(entry => entry.name.substr(entry.name.length-3, 3) === '.md' && entry.isFile)) {
                     handleFile(entry).then(li => ul.push(li));
                 }
+                console.log(ul);
                 res(ul);
             });
         }, e => alert(`Error loading files, code: ${e.code}`));
     });
-    
 }
