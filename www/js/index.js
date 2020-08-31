@@ -1,5 +1,6 @@
 function onDeviceReady() {
-    app =  {
+
+    const app =  {
         path: '',
         ul: [],
         updatePath() {
@@ -7,12 +8,15 @@ function onDeviceReady() {
         },
         updateFiles(res) {
             this.path = res ? res : this.path;
-            document.getElementById('path').innerHTML = this.path.split('/')[this.path.split('/').length-1];
-            handleDir(this.path).then(function(ul) {this.ul = ul ? ul : this.ul;});
+            this.updatePath();
+            handleDir(this.path).then(ul => {
+                this.ul = ul ? ul : this.ul;
+                renderList(this.ul)
+            });
         }
     };
     
-    loadPersistentFile('pathfile.txt', 'app', 'path').then(app.updateFiles);
+    loadPersistentFile('pathfile.txt', 'app', 'path').then(res => app.updateFiles(res));
     
     document.getElementById('selectDir').addEventListener('click', () => {
         pickDir(app.path).then(res => {
@@ -20,7 +24,7 @@ function onDeviceReady() {
             writePersistentFile('pathfile.txt', app.path);
         });
     });
-
+    
 }
 
 document.addEventListener('deviceready', onDeviceReady, false);
