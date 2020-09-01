@@ -24,6 +24,11 @@ function onDeviceReady() {
             writePersistentFile('pathfile.txt', app.path);
         });
     });
+
+    document.getElementById('searchButton').addEventListener('click', () => {
+        const search = document.getElementById('searchInput').value.toLowerCase();
+        renderList(app.ul.filter(el => el.content.includes(search)));
+    });
     
 }
 

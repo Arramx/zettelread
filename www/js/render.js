@@ -10,7 +10,7 @@ const handleFile = entry => {
                     tags: lines[1].split(' '),
                     name: entry.name,
                     link: `file://${entry.nativeURL}`,
-                    content: lines.slice(2).join('\n')
+                    content: this.result.toLowerCase()
                 });
             }
     
@@ -77,6 +77,8 @@ const renderList = list => {
         li.classList.add('item');
         ul.append(li);
     });
+    document.getElementById('list').innerHTML = '';
+
     ul.setAttribute('class', 'ul');
     document.getElementById('list').append(ul);
 
