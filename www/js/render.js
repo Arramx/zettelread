@@ -61,18 +61,22 @@ const renderList = list => {
         const p = document.createElement('p');
 
         h5.innerHTML = el.heading;
+        h5.classList.add('heading');
         li.append(h5);
 
         h6.innerHTML = el.tags.join(' ');
+        h6.classList.add('tags');
         li.append(h6);
 
         p.innerHTML = el.name;
         p.setAttribute('href', el.link);
-        p.setAttribute('class', 'plink');
+        p.classList.add('plink');
         li.append(p);
 
+        li.classList.add('item');
         ul.append(li);
     });
+    ul.setAttribute('class', 'ul');
     document.getElementById('list').append(ul);
 
     document.querySelectorAll('.plink').forEach(el => {
