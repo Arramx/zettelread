@@ -8,12 +8,23 @@
         <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
         <meta name="color-scheme" content="light dark">
         <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/list.css">
+        <link rel="stylesheet" href="css/controls.css">
         <title>Hello World</title>
     </head>
     <body>
-        <div class="dir">
-            <button id="selectDir" class="selectDir">Select Directory</button>
-            <p id="path"></p>
+        <div class="controls">
+            <div class="dir">
+                <button id="selectDir" class="selectDir">Select Directory</button>
+                <p id="path"></p>
+            </div>
+            <div class="search">
+                <input type="text" placeholder="Search" id="searchInput" class="searchInput">
+                <button id="searchButton">
+                    <!-- Icon made by [https://www.freeicons.io/profile/730] from www.freeicons.io -->
+                    <img src="search.svg" alt="Search icon">
+                </button>
+            </div>
         </div>
         <div id="list"></div>
         <script src="cordova.js"></script>

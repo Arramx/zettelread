@@ -9,7 +9,8 @@ const handleFile = entry => {
                     heading: lines[0].substring(2, lines[0].length-16),
                     tags: lines[1].split(' '),
                     name: entry.name,
-                    link: `file://${entry.nativeURL}`
+                    link: `file://${entry.nativeURL}`,
+                    content: lines.slice(2).join('\n')
                 });
             }
     
