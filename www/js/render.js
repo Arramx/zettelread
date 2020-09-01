@@ -56,23 +56,26 @@ const renderList = list => {
     const ul = document.createElement('ul');
     list.forEach(el => {
         const li = document.createElement('li');
-        const a = document.createElement('a');
         const h5 = document.createElement('h5');
         const h6 = document.createElement('h6');
         const p = document.createElement('p');
 
         h5.innerHTML = el.heading;
-        a.append(h5);
+        li.append(h5);
 
         h6.innerHTML = el.tags.join(' ');
-        a.append(h6);
+        li.append(h6);
 
         p.innerHTML = el.name;
-        a.append(p);
+        p.setAttribute('href', el.link);
+        p.setAttribute('class', 'plink');
+        li.append(p);
 
-        a.setAttribute('href', el.link)
-        li.append(a);
         ul.append(li);
     });
     document.getElementById('list').append(ul);
+
+    document.querySelectorAll('.plink').forEach(el => {
+        el.addEventListener('click', () => cordova.plugins.fileOpener2.open(el.getAttribute('href'), 'application/md'));
+    });
 }
