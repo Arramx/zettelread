@@ -51,11 +51,6 @@ const renderTags = (tags, app) => {
     document.getElementById('tagsButton').addEventListener('click', () => document.getElementById('tagDisplay').classList.add('showTags'));
     document.addEventListener('click', e => {
         const element = document.getElementById('tagDisplay');
-        console.log(!element.contains(e.target));
-        console.log(!(e.target.getAttribute('id') === 'tagsButton'));
-        console.log(e.target.getAttribute('id'));
-        console.log(e.target);
-        console.log(element.classList.contains('showTags'));
         if (!element.contains(e.target) && !(e.target.getAttribute('id') === 'tagsButton') && element.classList.contains('showTags')) {
             document.getElementById('tagDisplay').classList.remove('showTags');
             app.createList(app.ul);
