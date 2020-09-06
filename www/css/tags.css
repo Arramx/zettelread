@@ -1,0 +1,38 @@
+.tagsButton {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border: none;
+    outline: none;
+    font-size: 1.2rem;
+    background-color: #666;
+    color: white;
+    padding: 2px 4px;
+}
+
+.tagsDisplay {
+    width: 75vw;
+    position: absolute;
+    top: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px;
+    background-color: #444;
+    font-size: 0.8rem;
+    border-radius: 5%;
+    box-shadow: 0 0 10px 10px #222;
+    display: none;
+}
+
+.showTags {
+    display: initial;
+}
+
+.pTag {
+    padding: 5px 2px;
+    line-height: 1.1;
+}
+
+.tagClicked {
+    color: #41bd0c;
+}

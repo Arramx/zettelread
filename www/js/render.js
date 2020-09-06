@@ -1,58 +1,3 @@
-const handleFile = entry => {
-    return new Promise(res => {
-        entry.file(file => {
-            const reader = new FileReader();
-    
-            reader.onloadend = function() {
-                const lines = this.result.split('\n');
-                res({
-                    heading: lines[0].substring(2, lines[0].length-16),
-                    tags: lines[1].split(' '),
-                    name: entry.name,
-                    link: `file://${entry.nativeURL}`,
-                    content: this.result.toLowerCase()
-                });
-            }
-    
-            reader.readAsText(file);
-        });
-    })
-}
-
-const handleEntries = entries => {
-    return new Promise(res => {
-        const ul = [];
-        for (entry of entries) {
-            handleFile(entry).then(li => {
-                ul.push(li)
-                if (entries.length === ul.length) {
-                    ul.sort((a,b) => {
-                        const x = parseInt(`${a.name.substr(0,4)}${a.name.substr(5,2)}${a.name.substr(8,2)}${a.name.substr(8,2)}${a.name.substr(8,2)}`);
-                        const y = parseInt(`${b.name.substr(0,4)}${b.name.substr(5,2)}${b.name.substr(8,2)}${b.name.substr(8,2)}${b.name.substr(8,2)}`);
-                        if (x-y < 0) return -1;
-                        if (y-x < 0) return 1;
-                        return 0;
-                    });
-                    res(ul);
-                }
-            });
-
-        }
-    });
-}
-
-const handleDir = path => {
-    return new Promise(res => {
-        if (!path) res(null);
-        window.resolveLocalFileSystemURL(`file://${path}`, dirEntry => {
-            const dirReader = dirEntry.createReader();
-            dirReader.readEntries(entries => {
-               handleEntries(entries).then(ul => res(ul));
-            });
-        }, e => alert(`Error loading files, code: ${e.code}`));
-    });
-}
-
 const renderList = list => {
     const ul = document.createElement('ul');
     list.forEach(el => {
@@ -70,8 +15,8 @@ const renderList = list => {
         li.append(h6);
 
         p.innerHTML = el.name;
-        p.setAttribute('href', el.link);
         p.classList.add('plink');
+        p.addEventListener('click', () => cordova.plugins.fileOpener2.open(el.link, 'application/md'));
         li.append(p);
 
         li.classList.add('item');
@@ -81,8 +26,39 @@ const renderList = list => {
 
     ul.setAttribute('class', 'ul');
     document.getElementById('list').append(ul);
-
-    document.querySelectorAll('.plink').forEach(el => {
-        el.addEventListener('click', () => cordova.plugins.fileOpener2.open(el.getAttribute('href'), 'application/md'));
-    });
 }
+
+const renderTags = (tags, app) => {
+    const div = document.createElement('div');
+    div.setAttribute('id', 'tagDisplay');
+    div.classList.add('tagsDisplay');
+
+    tags.forEach(tag => {
+        const p = document.createElement('p');
+        p.classList.add('pTag');
+        p.innerHTML = tag;
+        p.addEventListener('click', () => {
+            p.classList.toggle('tagClicked');
+            if (p.classList.contains('tagClicked')) {
+                app.enabled.push(tag);
+            } else {
+                app.enabled = app.enabled.filter(e => e !== tag);
+            }
+        });
+        div.append(p);
+    });
+    document.querySelector('body').append(div);
+    document.getElementById('tagsButton').addEventListener('click', () => document.getElementById('tagDisplay').classList.add('showTags'));
+    document.addEventListener('click', e => {
+        const element = document.getElementById('tagDisplay');
+        console.log(!element.contains(e.target));
+        console.log(!(e.target.getAttribute('id') === 'tagsButton'));
+        console.log(e.target.getAttribute('id'));
+        console.log(e.target);
+        console.log(element.classList.contains('showTags'));
+        if (!element.contains(e.target) && !(e.target.getAttribute('id') === 'tagsButton') && element.classList.contains('showTags')) {
+            document.getElementById('tagDisplay').classList.remove('showTags');
+            app.createList(app.ul);
+        }
+    });
+};
