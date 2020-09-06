@@ -32,7 +32,7 @@ const pickDir = (startPath='') => {
     return new Promise(res => {
         window.OurCodeWorld.Filebrowser.folderPicker.single({
             success(data) {
-                if(!data.length) res(null);
+                if(!data.length) res('');
                 res(data[0].substr(7));
             },
             error(err) {

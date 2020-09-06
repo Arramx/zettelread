@@ -20,7 +20,11 @@ function onDeviceReady() {
             this.updatePath();
             handleDir(this.path).then(ul => {
                 this.ul = ul ? ul : this.ul;
-                this.tags = new Set(this.ul.map(e => e.tags).flat());
+                this.tags = [...new Set(this.ul.map(e => e.tags).flat())].sort((a,b) => {
+                    if (a < b) return -1;
+                    if (a > b) return 1;
+                    return 0;
+                });
                 this.createList(this.ul);
                 renderTags(this.tags, this);
             });
