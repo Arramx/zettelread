@@ -3,7 +3,7 @@ function onDeviceReady() {
     const app =  {
         path: '',
         ul: [],
-        tags: new Set(),
+        tags: [],
         enabled: [],
         updatePath() {
             document.getElementById('path').innerHTML = this.path.split('/')[this.path.split('/').length-1];
@@ -20,12 +20,12 @@ function onDeviceReady() {
             this.updatePath();
             handleDir(this.path).then(ul => {
                 this.ul = ul ? ul : this.ul;
+                this.createList(this.ul);
                 this.tags = [...new Set(this.ul.map(e => e.tags).flat())].sort((a,b) => {
                     if (a < b) return -1;
                     if (a > b) return 1;
                     return 0;
                 });
-                this.createList(this.ul);
                 renderTags(this.tags, this);
             });
         }

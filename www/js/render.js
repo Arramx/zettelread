@@ -47,7 +47,8 @@ const renderTags = (tags, app) => {
         });
         div.append(p);
     });
-    document.querySelector('body').append(div);
+    document.getElementById('tagsContainer').innerHTML = '';
+    document.getElementById('tagsContainer').append(div);
     document.getElementById('tagsButton').addEventListener('click', () => document.getElementById('tagDisplay').classList.add('showTags'));
     document.addEventListener('click', e => {
         const element = document.getElementById('tagDisplay');
