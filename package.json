@@ -23,10 +23,10 @@
     "plugins": {
       "cordova-plugin-whitelist": {},
       "cordova-plugin-file": {},
-      "com.ourcodeworld.plugins.Filebrowser": {},
       "cordova-plugin-file-opener2": {
         "ANDROID_SUPPORT_V4_VERSION": "27.+"
-      }
+      },
+      "com.ourcodeworld.plugins.Filebrowser": {}
     },
     "platforms": [
       "android"

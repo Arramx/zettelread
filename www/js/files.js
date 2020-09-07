@@ -89,7 +89,7 @@ const handleEntries = entries => {
 const handleDir = path => {
     return new Promise(res => {
         if (!path) res(null);
-        window.resolveLocalFileSystemURL(`file://${path}`, dirEntry => {
+        else window.resolveLocalFileSystemURL(`file://${path}`, dirEntry => {
             const dirReader = dirEntry.createReader();
             dirReader.readEntries(entries => {
                handleEntries(entries).then(ul => res(ul));
