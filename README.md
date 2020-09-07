@@ -3,7 +3,7 @@ An app for displaying [Zettelkasten](https://en.wikipedia.org/wiki/Zettelkasten)
 
 ## Zettelkästen format
 Since I made the app for personal usage, it's not very flexible. It supports only one way of structuring your Zettelkästen
-```md
+```markdown
 # The first line for the title
 #the #second #one #for #tags
 
