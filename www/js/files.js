@@ -75,10 +75,8 @@ const handleEntries = entries => {
                 ul.push(li)
                 if (entries.length === ul.length) {
                     ul.sort((a,b) => {
-                        const x = parseInt(`${a.name.substr(0,4)}${a.name.substr(5,2)}${a.name.substr(8,2)}${a.name.substr(8,2)}${a.name.substr(8,2)}`);
-                        const y = parseInt(`${b.name.substr(0,4)}${b.name.substr(5,2)}${b.name.substr(8,2)}${b.name.substr(8,2)}${b.name.substr(8,2)}`);
-                        if (x-y < 0) return -1;
-                        if (y-x < 0) return 1;
+                        if (a.name < b.name) return -1;
+                        if (b.name < a.name) return 1;
                         return 0;
                     });
                     res(ul);
