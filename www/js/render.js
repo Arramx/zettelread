@@ -1,5 +1,6 @@
 const renderList = list => {
     const ul = document.createElement('ul');
+    list = list.filter(el => el.name.slice(el.name.length-3) === '.md');
     list.forEach(el => {
         const li = document.createElement('li');
         const h5 = document.createElement('h5');
