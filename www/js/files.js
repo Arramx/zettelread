@@ -55,7 +55,7 @@ const handleFile = entry => {
                 const lines = this.result.split('\n');
                 res({
                     heading: lines[0].substring(2, lines[0].length-16),
-                    tags: lines[1].toLowerCase().split(' '),
+                    tags: entry.name.slice(entry.name.length-3) === '.md' ? lines[1].toLowerCase().split(' ') : [''],
                     name: entry.name,
                     link: `file://${entry.nativeURL}`,
                     content: this.result.toLowerCase()

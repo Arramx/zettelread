@@ -21,7 +21,7 @@ function onDeviceReady() {
             handleDir(this.path).then(ul => {
                 this.ul = ul ? ul : this.ul;
                 this.createList(this.ul);
-                this.tags = [...new Set(this.ul.map(e => e.tags).flat())].sort((a,b) => {
+                this.tags = [...new Set(this.ul.map(e => e.tags).flat().filter(e => e !== ''))].sort((a,b) => {
                     if (a < b) return -1;
                     if (a > b) return 1;
                     return 0;
