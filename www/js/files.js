@@ -70,6 +70,8 @@ const handleFile = entry => {
 const handleEntries = entries => {
     return new Promise(res => {
         const ul = [];
+        entries = entries.filter(e => e.isFile);
+
         for (entry of entries) {
             handleFile(entry).then(li => {
                 ul.push(li)
@@ -82,7 +84,6 @@ const handleEntries = entries => {
                     res(ul);
                 }
             });
-
         }
     });
 }
